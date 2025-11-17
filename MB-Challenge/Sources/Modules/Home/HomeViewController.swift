@@ -12,6 +12,7 @@ final class HomeViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: HomeViewModelProtocol
+    private let baseView = HomeView()
     
     // MARK: - Init
     
@@ -28,6 +29,12 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.fetchData()
+        setupView()
+    }
+    
+    // MARK: - Methods
+    
+    private func setupView() {
+        view = baseView
     }
 }

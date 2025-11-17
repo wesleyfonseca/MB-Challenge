@@ -9,7 +9,11 @@ import Foundation
 
 final class NetworkRequestService: NetworkRequestable {
     
+    // MARK: - Properties
+    
     private var task: URLSessionDataTask?
+    
+    // MARK: - Methods
     
     func request<DataType>(
         endpoint: NetworkEndpoint,

@@ -9,12 +9,20 @@ import UIKit
 
 final class MainCoordinator: NavigationCoordinator {
     
-    private let homeBuilder: UIViewController = {
-        let homeBuilder = HomeViewController()
-        return homeBuilder
+    private lazy var homeBuilder: UIViewController = {
+        let homeBuilder = HomeBuilder()
+        return homeBuilder.build(routerDelegate: self)
     }()
     
     func start() {
         viewController.setViewControllers([homeBuilder], animated: true)
+    }
+}
+
+// MARK: - HomeRouterDelegate
+
+extension MainCoordinator: HomeRouterDelegate {
+    func routeToHomeDetail() {
+        
     }
 }

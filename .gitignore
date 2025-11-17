@@ -1,0 +1,19 @@
+# Arquivos gerados pelo macOS
+.DS_Store
+
+# Diretório de dados de usuário do Xcode (inclui .xcuserstate)
+xcuserdata/
+
+# Dados de compilação
+build/
+
+# Módulos Swift Package Manager
+.build/
+
+# Dados de Workspace
+*.xcworkspace
+!default.xcworkspace
+*.xcuserstate
+
+# Arquivos de configurações de esquemas (como xcuserdat/xcschememanagement.plist)
+*.xcodeproj/project.xcworkspace/xcuserdata/

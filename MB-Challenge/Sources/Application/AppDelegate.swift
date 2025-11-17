@@ -10,6 +10,8 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    private let appCoordinator = AppCoordinator()
+    
     lazy var window: UIWindow? = {
         return UIWindow()
     }()
@@ -18,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.backgroundColor = .clear
         window?.makeKeyAndVisible()
-        window?.rootViewController = HomeViewController()
-        
+        window?.rootViewController = appCoordinator.rootViewController
+        appCoordinator.start()
         return true
     }
 }

@@ -23,6 +23,10 @@ final class HomeExchangeMapEndpoint: NetworkEndpoint {
         return .get
     }
     
+    var task: NetworkTask {
+        return .requestParameters(parameters: ["limit": limit])
+    }
+    
     var headers: [String : String] {
         return networkConfiguration.defaultHeaders()
     }

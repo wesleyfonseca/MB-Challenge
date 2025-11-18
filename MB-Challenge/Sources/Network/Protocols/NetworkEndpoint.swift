@@ -11,6 +11,7 @@ protocol NetworkEndpoint: AnyObject {
     var baseURL: URL { get }
     var path: String { get }
     var method: NetworkMethod { get }
+    var task: NetworkTask { get }
     var headers: [String: String] { get }
 }
 
@@ -27,6 +28,16 @@ extension NetworkEndpoint {
     }
     
     private func createURL() -> URL? {
+        switch task {
+        case .requestPlain:
+            return urlWithParameters([:])
+            
+        case .requestParameters(let parameters):
+            return urlWithParameters(parameters)
+        }
+    }
+    
+    private func urlWithParameters(_ parameters: [String: Any]) -> URL? {
         var requestURL = URLComponents()
         requestURL.scheme = baseURL.scheme
         requestURL.host = baseURL.host
@@ -35,6 +46,12 @@ extension NetworkEndpoint {
         
         if !baseURL.path.isEmpty {
             requestURL.path = baseURL.path + requestURL.path
+        }
+        
+        if !parameters.isEmpty {
+            requestURL.queryItems = parameters.map { key, value in
+                URLQueryItem(name: key, value: "\(value)")
+            }
         }
         
         return requestURL.url

@@ -33,6 +33,16 @@ final class HomeViewModel: HomeViewModelProtocol {
     // MARK: - Methods
     
     func fetchData() {
-        
+        let endpoint = HomeExchangeMapEndpoint()
+        service.request(endpoint: endpoint) { [weak self] (result: Result<HomeExchangeMapDTO?, NetworkErrorType>) in
+            guard let self else { return }
+            
+            switch result {
+            case .success(let response):
+                print("\(response)")
+            case .failure(let error):
+                break
+            }
+        }
     }
 }

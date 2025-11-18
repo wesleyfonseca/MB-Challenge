@@ -14,6 +14,7 @@ final class HomeBuilder {
         let viewModel = HomeViewModel(service: service,
                                       router: routerDelegate)
         let viewController = HomeViewController(viewModel: viewModel)
+        viewModel.delegate = viewController
         return viewController
     }
 }

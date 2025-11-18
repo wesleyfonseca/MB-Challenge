@@ -23,6 +23,6 @@ final class MainCoordinator: NavigationCoordinator {
 
 extension MainCoordinator: HomeRouterDelegate {
     func routeToHomeDetail() {
-        
+        print("TAPP")
     }
 }

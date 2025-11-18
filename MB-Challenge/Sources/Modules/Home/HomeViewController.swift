@@ -39,3 +39,15 @@ final class HomeViewController: UIViewController {
         view = baseView
     }
 }
+
+// MARK: - HomeViewModelDelegate
+
+extension HomeViewController: HomeViewModelDelegate {
+    func fetchDataWithSuccess() {
+        print("SUCCESS")
+    }
+    
+    func fetchDataWithError() {
+        print("ERROR")
+    }
+}

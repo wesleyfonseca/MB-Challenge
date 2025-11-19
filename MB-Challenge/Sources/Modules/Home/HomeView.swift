@@ -13,10 +13,9 @@ final class HomeView: UIView {
     
     lazy var tableView: UITableView  = {
         let tableView = UITableView()
-        tableView.delegate = self
-        tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.contentInsetAdjustmentBehavior = .automatic
         return tableView
     }()
     
@@ -45,20 +44,5 @@ extension HomeView: ViewCodeProtocol {
     
     func setupAdditionalConfiguration() {
         backgroundColor = .white
-    }
-}
-
-// MARK: - UITableViewDelegate & UITableViewDataSource
-
-extension HomeView: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "test \(indexPath.row)"
-        
-        return cell
     }
 }

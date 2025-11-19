@@ -23,20 +23,20 @@ struct HomeExchangeInfoData: Codable {
         case dateLaunched = "date_launched"
     }
     
-    let id: String
-    let logo: String
-    let name: String
-    let description: String
-    let urls: HomeExchangeInfoUrlData
-    let makerFee: String
-    let takerFee: String
-    let dateLaunched: String
+    let id: Int?
+    let logo: String?
+    let name: String?
+    let description: String?
+    let urls: HomeExchangeInfoUrlData?
+    let makerFee: Double?
+    let takerFee: Double?
+    let dateLaunched: String?
 }
 
 struct HomeExchangeInfoUrlData: Codable {
-    let website: [String]
-    let twitter: [String]
-    let blog: [String]
-    let chat: [String]
-    let fee: [String]
+    let website: [String]?
+    let twitter: [String]?
+    let blog: [String]?
+    let chat: [String]?
+    let fee: [String]?
 }

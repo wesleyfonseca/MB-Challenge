@@ -29,6 +29,7 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
         viewModel.fetchData()
     }
     
@@ -36,6 +37,12 @@ final class HomeViewController: UIViewController {
     
     private func setupView() {
         view = baseView
+        title = "Exchanges"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+        
+        baseView.tableView.delegate = self
+        baseView.tableView.dataSource = self
     }
 }
 
@@ -44,12 +51,27 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: HomeViewModelDelegate {
     func fetchDataWithSuccess() {
         DispatchQueue.main.async {
-            self.setupView()
-//            self.baseView.tableView.reloadData()
+            self.baseView.tableView.reloadData()
         }
     }
     
     func fetchDataWithError() {
         print("ERROR")
+    }
+}
+
+
+// MARK: - UITableViewDelegate & UITableViewDataSource
+
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.numberOfRows
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.textLabel?.text = "test \(indexPath.row)"
+        
+        return cell
     }
 }

@@ -17,6 +17,8 @@ protocol HomeViewModelDelegate: AnyObject {
 }
 
 protocol HomeViewModelProtocol: AnyObject {
+    var numberOfRows: Int { get }
+    
     func fetchData()
 }
 
@@ -31,6 +33,12 @@ final class HomeViewModel: HomeViewModelProtocol {
     private var exchangeInfoData: HomeExchangeInfoDTO?
     private var finalError: Error?
     
+    var numberOfRows: Int {
+        guard let exchangeInfoData else { return .zero }
+        
+        return exchangeInfoData.data.count
+    }
+    
     // MARK: - Init
     
     init(service: NetworkRequestable,
@@ -42,7 +50,7 @@ final class HomeViewModel: HomeViewModelProtocol {
     // MARK: - Methods
     
     func fetchData() {
-        let endpoint = HomeExchangeMapEndpoint()
+        let endpoint = HomeExchangeMapEndpoint(limit: "10")
         service.request(endpoint: endpoint) { [weak self] (result: Result<HomeExchangeMapDTO?,
                                                            NetworkErrorType>) in
             guard let self else { return }

@@ -28,6 +28,8 @@ final class HomeViewModel: HomeViewModelProtocol {
     private weak var router: HomeRouterDelegate?
     private let service: NetworkRequestable
     private var exchangeMapData: HomeExchangeMapDTO?
+    private var exchangeInfoData: HomeExchangeInfoDTO?
+    private var finalError: Error?
     
     // MARK: - Init
     
@@ -47,7 +49,31 @@ final class HomeViewModel: HomeViewModelProtocol {
             
             switch result {
             case .success(let response):
+                guard let response else {
+                    delegate?.fetchDataWithError()
+                    print("Failure. Empty MapList")
+                    return
+                }
                 exchangeMapData = response
+                fetchInfoExchanges(mapResponse: response)
+                
+            case .failure(let error):
+                delegate?.fetchDataWithError()
+                print("Failure to load \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func fetchInfoExchanges(mapResponse: HomeExchangeMapDTO) {
+        let ids = mapResponse.data.compactMap({ String($0.id) })
+        let endpoint = HomeExchangeInfoEndpoint(ids: ids)
+        service.request(endpoint: endpoint) { [weak self] (result: Result<HomeExchangeInfoDTO?,
+                                                           NetworkErrorType>) in
+            guard let self else { return }
+            
+            switch result {
+            case .success(let response):
+                exchangeInfoData = response
                 delegate?.fetchDataWithSuccess()
                 
             case .failure(let error):

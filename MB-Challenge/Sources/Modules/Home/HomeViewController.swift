@@ -30,7 +30,6 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.fetchData()
-        setupView()
     }
     
     // MARK: - Methods
@@ -44,7 +43,10 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController: HomeViewModelDelegate {
     func fetchDataWithSuccess() {
-        print("SUCCESS")
+        DispatchQueue.main.async {
+            self.setupView()
+//            self.baseView.tableView.reloadData()
+        }
     }
     
     func fetchDataWithError() {

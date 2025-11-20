@@ -16,6 +16,7 @@ final class HomeView: UIView {
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.contentInsetAdjustmentBehavior = .automatic
+        tableView.register(HomeTableCell.self, forCellReuseIdentifier: String(describing: HomeTableCell.self))
         return tableView
     }()
     
@@ -43,6 +44,6 @@ extension HomeView: ViewCodeProtocol {
     }
     
     func setupAdditionalConfiguration() {
-        backgroundColor = .white
+        tableView.backgroundColor = .systemGray6
     }
 }

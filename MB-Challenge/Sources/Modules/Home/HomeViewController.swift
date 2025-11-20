@@ -69,9 +69,20 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "test \(indexPath.row)"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeTableCell.self),
+                                                       for: indexPath) as? HomeTableCell else {
+            return UITableViewCell()
+        }
         
+        guard let dto = viewModel.tableCellDto(row: indexPath.row) else {
+            return UITableViewCell()
+        }
+        
+        cell.configure(dto: dto)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }

@@ -13,5 +13,4 @@ struct HomeExchangeMapDTO: Codable {
 
 struct HomeExchangeMapData: Codable {
     let id: Int
-    let name: String
 }

@@ -20,6 +20,7 @@ protocol HomeViewModelProtocol: AnyObject {
     var numberOfRows: Int { get }
     
     func fetchData()
+    func tableCellDto(row: Int) -> HomeTableCellDTO?
 }
 
 final class HomeViewModel: HomeViewModelProtocol {
@@ -71,6 +72,19 @@ final class HomeViewModel: HomeViewModelProtocol {
             }
         }
     }
+    
+    func tableCellDto(row: Int) -> HomeTableCellDTO? {
+        guard
+            let item = exchangeInfoData,
+            let logo = Array(item.data.values)[row].logo,
+            let name = Array(item.data.values)[row].name
+        else { return nil }
+        
+        return HomeTableCellDTO(logo: logo,
+                                title: name)
+    }
+    
+    // MARK: - Private Methods
     
     private func fetchInfoExchanges(mapResponse: HomeExchangeMapDTO) {
         let ids = mapResponse.data.compactMap({ String($0.id) })

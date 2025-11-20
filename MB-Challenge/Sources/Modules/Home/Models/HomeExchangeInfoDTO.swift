@@ -21,6 +21,7 @@ struct HomeExchangeInfoData: Codable {
         case makerFee = "maker_fee"
         case takerFee = "taker_fee"
         case dateLaunched = "date_launched"
+        case spotVolume = "spot_volume_usd"
     }
     
     let id: Int?
@@ -31,6 +32,7 @@ struct HomeExchangeInfoData: Codable {
     let makerFee: Double?
     let takerFee: Double?
     let dateLaunched: String?
+    let spotVolume: Double?
 }
 
 struct HomeExchangeInfoUrlData: Codable {

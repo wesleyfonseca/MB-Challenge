@@ -77,11 +77,15 @@ final class HomeViewModel: HomeViewModelProtocol {
         guard
             let item = exchangeInfoData,
             let logo = Array(item.data.values)[row].logo,
-            let name = Array(item.data.values)[row].name
+            let name = Array(item.data.values)[row].name,
+            let dateLaunched = Array(item.data.values)[row].dateLaunched
         else { return nil }
         
+        let spotVolume = Array(item.data.values)[row].spotVolume
         return HomeTableCellDTO(logo: logo,
-                                title: name)
+                                title: name,
+                                spotVolume: spotVolume.formatToUSD() ?? "US$ Unknown",
+                                dateLaunched: "Launched: \(dateLaunched.convertToMMDDYYYY())")
     }
     
     // MARK: - Private Methods

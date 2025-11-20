@@ -45,6 +45,24 @@ final class HomeTableCell: UITableViewCell {
         return label
     }()
     
+    private let spotVolumeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .black
+        return label
+    }()
+    
+    private let dateLaunchedLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        label.textColor = .gray
+        return label
+    }()
+    
     // MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -65,6 +83,8 @@ extension HomeTableCell: ViewCodeProtocol {
         container.addSubview(exchangeImage)
         container.addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(spotVolumeLabel)
+        stackView.addArrangedSubview(dateLaunchedLabel)
     }
     
     func setupContraints() {
@@ -77,11 +97,11 @@ extension HomeTableCell: ViewCodeProtocol {
             exchangeImage.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
             exchangeImage.widthAnchor.constraint(equalToConstant: 50),
             exchangeImage.heightAnchor.constraint(equalToConstant: 50),
-            exchangeImage.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -16),
             
             stackView.topAnchor.constraint(equalTo: exchangeImage.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: exchangeImage.trailingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16)
+            stackView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16),
+            stackView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -16)
         ])
     }
     
@@ -100,5 +120,7 @@ extension HomeTableCell {
     func configure(dto: HomeTableCellDTO) {
         exchangeImage.downloadImage(with: dto.logo)
         titleLabel.text = dto.title
+        spotVolumeLabel.text = dto.spotVolume
+        dateLaunchedLabel.text = dto.dateLaunched
     }
 }

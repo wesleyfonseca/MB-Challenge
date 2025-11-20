@@ -10,4 +10,6 @@ import Foundation
 struct HomeTableCellDTO {
     let logo: String
     let title: String
+    let spotVolume: String
+    let dateLaunched: String
 }

@@ -11,6 +11,8 @@ final class HomeDetailView: UIView {
     
     // MARK: - Properties
     
+    let headerView = HomeDetailHeaderView()
+    
     lazy var tableView: UITableView  = {
         let tableView = UITableView()
         tableView.separatorStyle = .none

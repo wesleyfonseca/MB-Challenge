@@ -48,6 +48,14 @@ final class HomeDetailViewController: UIViewController {
 extension HomeDetailViewController: HomeDetailViewModelDelegate {
     func fetchDataWithSuccess() {
         DispatchQueue.main.async {
+            guard let headerDTO = self.viewModel.headerDTO else { return }
+            
+            let header = self.baseView.headerView
+            header.configure(dto: headerDTO)
+            let height = header.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+            header.frame.size.height = height
+            
+            self.baseView.tableView.tableHeaderView = header
             self.baseView.tableView.reloadData()
         }
     }

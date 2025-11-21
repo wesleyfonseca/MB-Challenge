@@ -40,6 +40,7 @@ final class HomeViewController: UIViewController {
         title = "Exchanges"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.tintColor = .black
         
         baseView.tableView.delegate = self
         baseView.tableView.dataSource = self

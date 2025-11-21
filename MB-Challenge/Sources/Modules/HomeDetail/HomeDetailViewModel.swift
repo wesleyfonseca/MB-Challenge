@@ -13,6 +13,7 @@ protocol HomeDetailViewModelDelegate: AnyObject {
 }
 
 protocol HomeDetailViewModelProtocol: AnyObject {
+    var headerDTO: HomeDetailHeaderDTO? { get }
     var numberOfRows: Int { get }
     
     func fetchData()
@@ -27,6 +28,11 @@ final class HomeDetailViewModel: HomeDetailViewModelProtocol {
     private let service: NetworkRequestable
     private let exchangeInfoData: HomeExchangeInfoData
     private var finalError: Error?
+    
+    var headerDTO: HomeDetailHeaderDTO? {
+        guard let logo = exchangeInfoData.logo else { return nil }
+        return HomeDetailHeaderDTO(logo: logo)
+    }
     
     var numberOfRows: Int {
         return 1
@@ -44,25 +50,26 @@ final class HomeDetailViewModel: HomeDetailViewModelProtocol {
     
     func fetchData() {
         let endpoint = HomeExchangeMapEndpoint(limit: "10")
-        service.request(endpoint: endpoint) { [weak self] (result: Result<HomeExchangeMapDTO?,
-                                                           NetworkErrorType>) in
-            guard let self else { return }
-            
-            switch result {
-            case .success(let response):
-                guard let response else {
-                    delegate?.fetchDataWithError()
-                    print("Failure. Empty MapList")
-                    return
-                }
-//                exchangeMapData = response
-                fetchInfoExchanges(mapResponse: response)
-                
-            case .failure(let error):
-                delegate?.fetchDataWithError()
-                print("Failure to load \(error.localizedDescription)")
-            }
-        }
+        delegate?.fetchDataWithSuccess()
+//        service.request(endpoint: endpoint) { [weak self] (result: Result<HomeExchangeMapDTO?,
+//                                                           NetworkErrorType>) in
+//            guard let self else { return }
+//            
+//            switch result {
+//            case .success(let response):
+//                guard let response else {
+//                    delegate?.fetchDataWithError()
+//                    print("Failure. Empty MapList")
+//                    return
+//                }
+////                exchangeMapData = response
+//                fetchInfoExchanges(mapResponse: response)
+//                
+//            case .failure(let error):
+//                delegate?.fetchDataWithError()
+//                print("Failure to load \(error.localizedDescription)")
+//            }
+//        }
     }
     
     func tableCellDto(row: Int) -> HomeTableCellDTO? {

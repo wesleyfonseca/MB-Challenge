@@ -16,7 +16,7 @@ final class HomeDetailHeaderView: UIView {
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
-        image.layer.cornerRadius = 12.0
+        image.layer.cornerRadius = 40.0
         return image
     }()
     
@@ -40,11 +40,18 @@ extension HomeDetailHeaderView: ViewCodeProtocol {
     }
     
     func setupContraints() {
-        
+        NSLayoutConstraint.activate([
+            exchangeImage.topAnchor.constraint(equalTo: topAnchor),
+            exchangeImage.centerXAnchor.constraint(equalTo: centerXAnchor),
+            exchangeImage.heightAnchor.constraint(equalToConstant: 80),
+            exchangeImage.widthAnchor.constraint(equalToConstant: 80),
+            exchangeImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -24)
+            
+        ])
     }
     
     func setupAdditionalConfiguration() {
-        backgroundColor = .clear
+        backgroundColor = .systemGray6
     }
 }
 

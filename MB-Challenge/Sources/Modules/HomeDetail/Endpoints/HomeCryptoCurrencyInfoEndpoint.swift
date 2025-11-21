@@ -1,13 +1,13 @@
 //
-//  HomeExchangeMapEndpoint.swift
+//  HomeCryptoCurrencyInfoEndpoint.swift
 //  MB-Challenge
 //
-//  Created by Wésley Fonseca on 17/11/25.
+//  Created by Wésley Fonseca on 21/11/25.
 //
 
 import Foundation
 
-final class HomeExchangeMapEndpoint: NetworkEndpoint {
+final class HomeCryptoCurrencyInfoEndpoint: NetworkEndpoint {
     
     // MARK: - Properties
     
@@ -16,7 +16,7 @@ final class HomeExchangeMapEndpoint: NetworkEndpoint {
     }
     
     var path: String {
-        return "/v1/exchange/map"
+        return "/v2/cryptocurrency/info"
     }
     
     var method: NetworkMethod {
@@ -24,7 +24,7 @@ final class HomeExchangeMapEndpoint: NetworkEndpoint {
     }
     
     var task: NetworkTask {
-        return .requestParameters(parameters: ["limit": limit])
+        return .requestParameters(parameters: ["id": id])
     }
     
     var headers: [String : String] {
@@ -32,13 +32,13 @@ final class HomeExchangeMapEndpoint: NetworkEndpoint {
     }
     
     private let networkConfiguration: NetworkConfiguration
-    private let limit: String
+    private let id: String
     
     // MARK: - Init
     
     init(networkConfiguration: NetworkConfiguration = NetworkConfiguration(),
-         limit: String = "100") {
+         id: String) {
         self.networkConfiguration = networkConfiguration
-        self.limit = limit
+        self.id = id
     }
 }

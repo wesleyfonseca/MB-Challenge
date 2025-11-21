@@ -1,22 +1,22 @@
 //
-//  HomeViewController.swift
+//  HomeDetailViewController.swift
 //  MB-Challenge
 //
-//  Created by Wésley Fonseca on 17/11/25.
+//  Created by Wésley Fonseca on 21/11/25.
 //
 
 import UIKit
 
-final class HomeViewController: UIViewController {
+final class HomeDetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let viewModel: HomeViewModelProtocol
-    private let baseView = HomeView()
+    private let viewModel: HomeDetailViewModelProtocol
+    private let baseView = HomeDetailView()
     
     // MARK: - Init
     
-    init(viewModel: HomeViewModelProtocol) {
+    init(viewModel: HomeDetailViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -46,9 +46,9 @@ final class HomeViewController: UIViewController {
     }
 }
 
-// MARK: - HomeViewModelDelegate
+// MARK: - HomeDetailViewModelDelegate
 
-extension HomeViewController: HomeViewModelDelegate {
+extension HomeDetailViewController: HomeDetailViewModelDelegate {
     func fetchDataWithSuccess() {
         DispatchQueue.main.async {
             self.baseView.tableView.reloadData()
@@ -63,26 +63,23 @@ extension HomeViewController: HomeViewModelDelegate {
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
 
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+extension HomeDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRows
+//        return viewModel.numberOfRows
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeTableCell.self),
-                                                       for: indexPath) as? HomeTableCell else {
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeTableCell.self),
+//                                                       for: indexPath) as? HomeTableCell else {
             return UITableViewCell()
-        }
-        
-        guard let dto = viewModel.tableCellDto(row: indexPath.row) else {
-            return UITableViewCell()
-        }
-        
-        cell.configure(dto: dto)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.didSelectRowAt(row: indexPath.row)
+//        }
+//        
+//        guard let dto = viewModel.tableCellDto(row: indexPath.row) else {
+//            return UITableViewCell()
+//        }
+//        
+//        cell.configure(dto: dto)
+//        return cell
     }
 }

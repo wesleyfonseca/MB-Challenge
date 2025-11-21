@@ -1,36 +1,31 @@
 //
-//  HomeViewModel.swift
+//  HomeDetailViewModel.swift
 //  MB-Challenge
 //
-//  Created by Wésley Fonseca on 17/11/25.
+//  Created by Wésley Fonseca on 21/11/25.
 //
 
 import Foundation
 
-protocol HomeRouterDelegate: AnyObject {
-    func routeToHomeDetail(id: String)
-}
-
-protocol HomeViewModelDelegate: AnyObject {
+protocol HomeDetailViewModelDelegate: AnyObject {
     func fetchDataWithSuccess()
     func fetchDataWithError()
 }
 
-protocol HomeViewModelProtocol: AnyObject {
+protocol HomeDetailViewModelProtocol: AnyObject {
     var numberOfRows: Int { get }
     
     func fetchData()
     func tableCellDto(row: Int) -> HomeTableCellDTO?
-    func didSelectRowAt(row: Int)
 }
 
-final class HomeViewModel: HomeViewModelProtocol {
+final class HomeDetailViewModel: HomeDetailViewModelProtocol {
     
     // MARK: - Properties
     
-    weak var delegate: HomeViewModelDelegate?
-    private weak var router: HomeRouterDelegate?
+    weak var delegate: HomeDetailViewModelDelegate?
     private let service: NetworkRequestable
+    private let id: String
     private var exchangeMapData: HomeExchangeMapDTO?
     private var exchangeInfoData: HomeExchangeInfoDTO?
     private var finalError: Error?
@@ -44,9 +39,9 @@ final class HomeViewModel: HomeViewModelProtocol {
     // MARK: - Init
     
     init(service: NetworkRequestable,
-         router: HomeRouterDelegate?) {
+         id: String) {
         self.service = service
-        self.router = router
+        self.id = id
     }
     
     // MARK: - Methods
@@ -87,15 +82,6 @@ final class HomeViewModel: HomeViewModelProtocol {
                                 title: name,
                                 spotVolume: spotVolume.formatToUSD() ?? "US$ Unknown",
                                 dateLaunched: "Launched: \(dateLaunched.convertToMMDDYYYY())")
-    }
-    
-    func didSelectRowAt(row: Int) {
-        guard
-            let item = exchangeInfoData,
-            let id = Array(item.data.values)[row].id
-        else { return }
-        
-        router?.routeToHomeDetail(id: String(id))
     }
     
     // MARK: - Private Methods

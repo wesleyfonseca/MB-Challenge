@@ -25,23 +25,19 @@ final class HomeDetailViewModel: HomeDetailViewModelProtocol {
     
     weak var delegate: HomeDetailViewModelDelegate?
     private let service: NetworkRequestable
-    private let id: String
-    private var exchangeMapData: HomeExchangeMapDTO?
-    private var exchangeInfoData: HomeExchangeInfoDTO?
+    private let exchangeInfoData: HomeExchangeInfoData
     private var finalError: Error?
     
     var numberOfRows: Int {
-        guard let exchangeInfoData else { return .zero }
-        
-        return exchangeInfoData.data.count
+        return 1
     }
     
     // MARK: - Init
     
     init(service: NetworkRequestable,
-         id: String) {
+         exchangeInfoData: HomeExchangeInfoData) {
         self.service = service
-        self.id = id
+        self.exchangeInfoData = exchangeInfoData
     }
     
     // MARK: - Methods
@@ -59,7 +55,7 @@ final class HomeDetailViewModel: HomeDetailViewModelProtocol {
                     print("Failure. Empty MapList")
                     return
                 }
-                exchangeMapData = response
+//                exchangeMapData = response
                 fetchInfoExchanges(mapResponse: response)
                 
             case .failure(let error):
@@ -70,18 +66,19 @@ final class HomeDetailViewModel: HomeDetailViewModelProtocol {
     }
     
     func tableCellDto(row: Int) -> HomeTableCellDTO? {
-        guard
-            let item = exchangeInfoData,
-            let logo = Array(item.data.values)[row].logo,
-            let name = Array(item.data.values)[row].name,
-            let dateLaunched = Array(item.data.values)[row].dateLaunched
-        else { return nil }
-        
-        let spotVolume = Array(item.data.values)[row].spotVolume
-        return HomeTableCellDTO(logo: logo,
-                                title: name,
-                                spotVolume: spotVolume.formatToUSD() ?? "US$ Unknown",
-                                dateLaunched: "Launched: \(dateLaunched.convertToMMDDYYYY())")
+        return nil
+//        guard
+//            let item = exchangeInfoData,
+//            let logo = Array(item.data.values)[row].logo,
+//            let name = Array(item.data.values)[row].name,
+//            let dateLaunched = Array(item.data.values)[row].dateLaunched
+//        else { return nil }
+//        
+//        let spotVolume = Array(item.data.values)[row].spotVolume
+//        return HomeTableCellDTO(logo: logo,
+//                                title: name,
+//                                spotVolume: spotVolume.formatToUSD() ?? "US$ Unknown",
+//                                dateLaunched: "Launched: \(dateLaunched.convertToMMDDYYYY())")
     }
     
     // MARK: - Private Methods
@@ -95,7 +92,7 @@ final class HomeDetailViewModel: HomeDetailViewModelProtocol {
             
             switch result {
             case .success(let response):
-                exchangeInfoData = response
+//                exchangeInfoData = response
                 delegate?.fetchDataWithSuccess()
                 
             case .failure(let error):

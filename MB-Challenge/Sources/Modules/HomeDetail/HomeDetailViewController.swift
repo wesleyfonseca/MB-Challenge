@@ -37,9 +37,6 @@ final class HomeDetailViewController: UIViewController {
     
     private func setupView() {
         view = baseView
-        title = "Exchanges"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
         
         baseView.tableView.delegate = self
         baseView.tableView.dataSource = self
@@ -56,7 +53,7 @@ extension HomeDetailViewController: HomeDetailViewModelDelegate {
     }
     
     func fetchDataWithError() {
-        print("ERROR")
+        print("ERROR DETAIL")
     }
 }
 

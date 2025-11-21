@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HomeRouterDelegate: AnyObject {
-    func routeToHomeDetail(id: String)
+    func routeToHomeDetail(exchangeInfoData: HomeExchangeInfoData)
 }
 
 protocol HomeViewModelDelegate: AnyObject {
@@ -90,12 +90,8 @@ final class HomeViewModel: HomeViewModelProtocol {
     }
     
     func didSelectRowAt(row: Int) {
-        guard
-            let item = exchangeInfoData,
-            let id = Array(item.data.values)[row].id
-        else { return }
-        
-        router?.routeToHomeDetail(id: String(id))
+        guard let item = exchangeInfoData else { return }
+        router?.routeToHomeDetail(exchangeInfoData: Array(item.data.values)[row])
     }
     
     // MARK: - Private Methods

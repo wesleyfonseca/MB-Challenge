@@ -16,7 +16,6 @@ final class HomeDetailView: UIView {
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.contentInsetAdjustmentBehavior = .automatic
-        tableView.backgroundColor = .systemRed
 //        tableView.register(HomeTableCell.self, forCellReuseIdentifier: String(describing: HomeTableCell.self))
         return tableView
     }()

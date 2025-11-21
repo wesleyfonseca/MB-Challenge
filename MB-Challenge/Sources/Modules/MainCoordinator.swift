@@ -27,8 +27,8 @@ final class MainCoordinator: NavigationCoordinator {
 // MARK: - HomeRouterDelegate
 
 extension MainCoordinator: HomeRouterDelegate {
-    func routeToHomeDetail(id: String) {
-        let homeDetailViewController = homeDetailBuilder.build(id: id)
+    func routeToHomeDetail(exchangeInfoData: HomeExchangeInfoData) {
+        let homeDetailViewController = homeDetailBuilder.build(exchangeInfoData: exchangeInfoData)
         viewController.pushViewController(homeDetailViewController, animated: true)
     }
 }

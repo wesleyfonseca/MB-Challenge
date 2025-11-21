@@ -9,9 +9,10 @@ import Foundation
 
 final class HomeDetailBuilder {
     
-    func build(id: String) -> HomeDetailViewController {
+    func build(exchangeInfoData: HomeExchangeInfoData) -> HomeDetailViewController {
         let service = NetworkRequestService()
-        let viewModel = HomeDetailViewModel(service: service, id: id)
+        let viewModel = HomeDetailViewModel(service: service,
+                                            exchangeInfoData: exchangeInfoData)
         let viewController = HomeDetailViewController(viewModel: viewModel)
         viewModel.delegate = viewController
         return viewController

@@ -20,6 +20,12 @@ final class HomeView: UIView {
         return tableView
     }()
     
+    let spinnerView: SpinnerView = {
+        let spinner = SpinnerView()
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        return spinner
+    }()
+    
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -30,6 +36,18 @@ final class HomeView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Methods
+    
+    func startLoading() {
+        tableView.isHidden = true
+        spinnerView.startLoading()
+    }
+    
+    func stopLoading() {
+        tableView.isHidden = false
+        spinnerView.stopLoading()
+    }
 }
 
 // MARK: - ViewCodeProtocol
@@ -37,13 +55,20 @@ final class HomeView: UIView {
 extension HomeView: ViewCodeProtocol {
     func buildViewHierarchy() {
         addSubview(tableView)
+        addSubview(spinnerView)
     }
     
     func setupContraints() {
         tableView.pinToBounds(of: self)
+        
+        NSLayoutConstraint.activate([
+            spinnerView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            spinnerView.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
     }
     
     func setupAdditionalConfiguration() {
+        backgroundColor = .white
         tableView.backgroundColor = .systemGray6
     }
 }

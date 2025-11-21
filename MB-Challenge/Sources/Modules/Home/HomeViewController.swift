@@ -31,6 +31,7 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         viewModel.fetchData()
+        startLoading()
     }
     
     // MARK: - Methods
@@ -45,6 +46,10 @@ final class HomeViewController: UIViewController {
         baseView.tableView.delegate = self
         baseView.tableView.dataSource = self
     }
+    
+    private func startLoading() {
+        baseView.startLoading()
+    }
 }
 
 // MARK: - HomeViewModelDelegate
@@ -52,15 +57,15 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: HomeViewModelDelegate {
     func fetchDataWithSuccess() {
         DispatchQueue.main.async {
+            self.baseView.stopLoading()
             self.baseView.tableView.reloadData()
         }
     }
     
     func fetchDataWithError() {
-        print("ERROR")
+        baseView.stopLoading()
     }
 }
-
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
 

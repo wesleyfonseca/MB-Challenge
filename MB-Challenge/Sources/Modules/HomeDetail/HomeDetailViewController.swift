@@ -31,6 +31,7 @@ final class HomeDetailViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         viewModel.fetchData()
+        startLoading()
     }
     
     // MARK: - Methods
@@ -41,6 +42,10 @@ final class HomeDetailViewController: UIViewController {
         baseView.tableView.delegate = self
         baseView.tableView.dataSource = self
     }
+    
+    private func startLoading() {
+        baseView.startLoading()
+    }
 }
 
 // MARK: - HomeDetailViewModelDelegate
@@ -49,6 +54,7 @@ extension HomeDetailViewController: HomeDetailViewModelDelegate {
     func fetchDataWithSuccess() {
         DispatchQueue.main.async {
             guard let headerDTO = self.viewModel.headerDTO else { return }
+            self.baseView.stopLoading()
             
             let header = self.baseView.headerView
             header.configure(dto: headerDTO)
@@ -61,6 +67,7 @@ extension HomeDetailViewController: HomeDetailViewModelDelegate {
     }
     
     func fetchDataWithError() {
+        baseView.stopLoading()
         print("ERROR DETAIL")
     }
 }

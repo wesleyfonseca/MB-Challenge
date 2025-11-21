@@ -45,7 +45,7 @@ extension HomeDetailHeaderView: ViewCodeProtocol {
             exchangeImage.centerXAnchor.constraint(equalTo: centerXAnchor),
             exchangeImage.heightAnchor.constraint(equalToConstant: 80),
             exchangeImage.widthAnchor.constraint(equalToConstant: 80),
-            exchangeImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -24)
+            exchangeImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48)
             
         ])
     }

@@ -24,7 +24,7 @@ final class HomeCryptoCurrencyInfoEndpoint: NetworkEndpoint {
     }
     
     var task: NetworkTask {
-        return .requestParameters(parameters: ["id": id])
+        return .requestParameters(parameters: ["id": ids.compactMap({$0}).joined(separator: ",")])
     }
     
     var headers: [String : String] {
@@ -32,13 +32,13 @@ final class HomeCryptoCurrencyInfoEndpoint: NetworkEndpoint {
     }
     
     private let networkConfiguration: NetworkConfiguration
-    private let id: String
+    private let ids: [String]
     
     // MARK: - Init
     
     init(networkConfiguration: NetworkConfiguration = NetworkConfiguration(),
-         id: String) {
+         ids: [String]) {
         self.networkConfiguration = networkConfiguration
-        self.id = id
+        self.ids = ids
     }
 }

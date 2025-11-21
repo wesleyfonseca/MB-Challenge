@@ -33,7 +33,6 @@ final class HomeViewModel: HomeViewModelProtocol {
     private let service: NetworkRequestable
     private var exchangeMapData: HomeExchangeMapDTO?
     private var exchangeInfoData: HomeExchangeInfoDTO?
-    private var finalError: Error?
     
     var numberOfRows: Int {
         guard let exchangeInfoData else { return .zero }

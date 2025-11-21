@@ -27,7 +27,8 @@ final class HomeDetailViewModel: HomeDetailViewModelProtocol {
     weak var delegate: HomeDetailViewModelDelegate?
     private let service: NetworkRequestable
     private let exchangeInfoData: HomeExchangeInfoData
-    private var finalError: Error?
+    private var assetsDTO: HomeDetailExchangeAssetsDTO?
+    private var infoCryptoDTO: HomeCryptoCurrencyInfoDTO?
     
     var headerDTO: HomeDetailHeaderDTO? {
         guard let logo = exchangeInfoData.logo else { return nil }
@@ -35,7 +36,9 @@ final class HomeDetailViewModel: HomeDetailViewModelProtocol {
     }
     
     var numberOfRows: Int {
-        return 1
+        guard let infoCryptoDTO else { return .zero }
+        
+        return infoCryptoDTO.data.count
     }
     
     // MARK: - Init
@@ -49,27 +52,26 @@ final class HomeDetailViewModel: HomeDetailViewModelProtocol {
     // MARK: - Methods
     
     func fetchData() {
-        let endpoint = HomeExchangeMapEndpoint(limit: "10")
-        delegate?.fetchDataWithSuccess()
-//        service.request(endpoint: endpoint) { [weak self] (result: Result<HomeExchangeMapDTO?,
-//                                                           NetworkErrorType>) in
-//            guard let self else { return }
-//            
-//            switch result {
-//            case .success(let response):
-//                guard let response else {
-//                    delegate?.fetchDataWithError()
-//                    print("Failure. Empty MapList")
-//                    return
-//                }
-////                exchangeMapData = response
-//                fetchInfoExchanges(mapResponse: response)
-//                
-//            case .failure(let error):
-//                delegate?.fetchDataWithError()
-//                print("Failure to load \(error.localizedDescription)")
-//            }
-//        }
+        guard let id = exchangeInfoData.id else { return }
+        let endpoint = HomeExchangeAssetsEndpoint(id: String(id))
+        service.request(endpoint: endpoint) { [weak self] (result: Result<HomeDetailExchangeAssetsDTO?,
+                                                           NetworkErrorType>) in
+            guard let self else { return }
+            
+            switch result {
+            case .success(let response):
+                guard let response else {
+                    print("Failure. Empty Assets")
+                    return
+                }
+                assetsDTO = response
+                fetchInfoCrypto(assetResponse: response)
+                
+            case .failure(let error):
+                delegate?.fetchDataWithError()
+                print("Failure to load \(error.localizedDescription)")
+            }
+        }
     }
     
     func tableCellDto(row: Int) -> HomeTableCellDTO? {
@@ -90,16 +92,22 @@ final class HomeDetailViewModel: HomeDetailViewModelProtocol {
     
     // MARK: - Private Methods
     
-    private func fetchInfoExchanges(mapResponse: HomeExchangeMapDTO) {
-        let ids = mapResponse.data.compactMap({ String($0.id) })
-        let endpoint = HomeExchangeInfoEndpoint(ids: ids)
-        service.request(endpoint: endpoint) { [weak self] (result: Result<HomeExchangeInfoDTO?,
+    private func fetchInfoCrypto(assetResponse: HomeDetailExchangeAssetsDTO) {
+        let ids: [String] = assetResponse.data.compactMap { asset in
+            guard let id = asset.currency?.id else { return nil }
+            return String(id)
+        }
+        
+        guard !ids.isEmpty else { return }
+        
+        let endpoint = HomeCryptoCurrencyInfoEndpoint(ids: ids)
+        service.request(endpoint: endpoint) { [weak self] (result: Result<HomeCryptoCurrencyInfoDTO?,
                                                            NetworkErrorType>) in
             guard let self else { return }
             
             switch result {
             case .success(let response):
-//                exchangeInfoData = response
+                infoCryptoDTO = response
                 delegate?.fetchDataWithSuccess()
                 
             case .failure(let error):

@@ -41,8 +41,7 @@ SnapshotTesting is a Swift library facilitating snapshot testing, verifying UI o
 
 
 #### Detail Screen
-|:--:|:--:|
-|<img src="https://github.com/wesleyfonseca/MB-Challenge/blob/main/assets/ExchangeDetail1.png" width="200">|<img src="https://github.com/wesleyfonseca/MB-Challenge/blob/main/assets/ExchangeDetail2.png" width="200">|
+<img src="https://github.com/wesleyfonseca/MB-Challenge/blob/main/assets/ExchangeDetail1.png" width="200">|<img src="https://github.com/wesleyfonseca/MB-Challenge/blob/main/assets/ExchangeDetail2.png" width="200">
 
 ### GIF
 <img src="https://github.com/wesleyfonseca/MB-Challenge/blob/main/assets/All.gif" width="200">

@@ -41,7 +41,7 @@ extension HomeDetailHeaderView: ViewCodeProtocol {
     
     func setupContraints() {
         NSLayoutConstraint.activate([
-            exchangeImage.topAnchor.constraint(equalTo: topAnchor),
+            exchangeImage.topAnchor.constraint(equalTo: topAnchor, constant: 48),
             exchangeImage.centerXAnchor.constraint(equalTo: centerXAnchor),
             exchangeImage.heightAnchor.constraint(equalToConstant: 80),
             exchangeImage.widthAnchor.constraint(equalToConstant: 80),

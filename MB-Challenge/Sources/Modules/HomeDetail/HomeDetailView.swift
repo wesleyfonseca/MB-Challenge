@@ -28,6 +28,8 @@ final class HomeDetailView: UIView {
         return spinner
     }()
     
+    let errorView = ErrorView()
+    
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -50,18 +52,26 @@ final class HomeDetailView: UIView {
         tableView.isHidden = false
         spinnerView.stopLoading()
     }
+    
+    func showError() {
+        stopLoading()
+        tableView.isHidden = true
+        errorView.isHidden = false
+    }
 }
 
 // MARK: - ViewCodeProtocol
 
 extension HomeDetailView: ViewCodeProtocol {
     func buildViewHierarchy() {
-        addSubview(tableView)
+        addSubview(errorView)
         addSubview(spinnerView)
+        addSubview(tableView)
     }
     
     func setupContraints() {
         tableView.pinToBounds(of: self)
+        errorView.pinToBounds(of: self)
         
         NSLayoutConstraint.activate([
             spinnerView.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -70,7 +80,7 @@ extension HomeDetailView: ViewCodeProtocol {
     }
     
     func setupAdditionalConfiguration() {
-        backgroundColor = .white
+        backgroundColor = .systemGray6
         tableView.backgroundColor = .systemGray6
     }
 }

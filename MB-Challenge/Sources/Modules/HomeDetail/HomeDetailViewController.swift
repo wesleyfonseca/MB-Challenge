@@ -67,8 +67,9 @@ extension HomeDetailViewController: HomeDetailViewModelDelegate {
     }
     
     func fetchDataWithError() {
-        baseView.stopLoading()
-        print("ERROR DETAIL")
+        DispatchQueue.main.async {
+            self.baseView.showError()
+        }
     }
 }
 

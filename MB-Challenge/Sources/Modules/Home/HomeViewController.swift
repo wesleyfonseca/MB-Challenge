@@ -39,8 +39,6 @@ final class HomeViewController: UIViewController {
     private func setupView() {
         view = baseView
         title = "Exchanges"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.tintColor = .black
         
         baseView.tableView.delegate = self
@@ -63,7 +61,9 @@ extension HomeViewController: HomeViewModelDelegate {
     }
     
     func fetchDataWithError() {
-        baseView.stopLoading()
+        DispatchQueue.main.async {
+            self.baseView.showError()
+        }
     }
 }
 

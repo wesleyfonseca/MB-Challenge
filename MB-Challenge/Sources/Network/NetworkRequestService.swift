@@ -43,6 +43,7 @@ final class NetworkRequestService: NetworkRequestable {
                 }
             } else {
                 print("Status Code: \(httpResponse.statusCode)")
+                completion(.failure(.unknown))
             }
         })
         

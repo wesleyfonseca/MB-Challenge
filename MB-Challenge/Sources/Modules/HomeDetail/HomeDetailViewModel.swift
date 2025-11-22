@@ -98,7 +98,10 @@ final class HomeDetailViewModel: HomeDetailViewModelProtocol {
             return String(id)
         }
         
-        guard !ids.isEmpty else { return }
+        guard !ids.isEmpty else {
+            delegate?.fetchDataWithSuccess()
+            return
+        }
         
         let endpoint = HomeCryptoCurrencyInfoEndpoint(ids: ids)
         service.request(endpoint: endpoint) { [weak self] (result: Result<HomeCryptoCurrencyInfoDTO?,

@@ -31,8 +31,8 @@ final class HomeViewModel: HomeViewModelProtocol {
     weak var delegate: HomeViewModelDelegate?
     private weak var router: HomeRouterDelegate?
     private let service: NetworkRequestable
-    private var exchangeMapData: HomeExchangeMapDTO?
-    private var exchangeInfoData: HomeExchangeInfoDTO?
+    private(set) var exchangeMapData: HomeExchangeMapDTO?
+    private(set) var exchangeInfoData: HomeExchangeInfoDTO?
     
     var numberOfRows: Int {
         guard let exchangeInfoData else { return .zero }

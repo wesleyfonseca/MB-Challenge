@@ -31,8 +31,27 @@ final class HomeDetailViewModel: HomeDetailViewModelProtocol {
     private var infoCryptoDTO: HomeCryptoCurrencyInfoDTO?
     
     var headerDTO: HomeDetailHeaderDTO? {
-        guard let logo = exchangeInfoData.logo else { return nil }
-        return HomeDetailHeaderDTO(logo: logo)
+        guard
+            let logo = exchangeInfoData.logo,
+            let title = exchangeInfoData.name,
+            let description = exchangeInfoData.description,
+            let website = exchangeInfoData.urls?.website?.first,
+            
+            let dateLaunched = exchangeInfoData.dateLaunched
+        else { return nil }
+        
+        let spotVolume = exchangeInfoData.spotVolume.formatToUSD() ?? "US$ Unknown"
+        let markerFee = exchangeInfoData.makerFee.formatToUSD() ?? "US$ Unknown"
+        let tankerFee = exchangeInfoData.takerFee.formatToUSD() ?? "US$ Unknown"
+        
+        return HomeDetailHeaderDTO(logo: logo,
+                                   title: title,
+                                   spotValue: spotVolume,
+                                   description: description,
+                                   website: website,
+                                   markerFee: markerFee,
+                                   tankerFee: tankerFee,
+                                   dateLaunched: dateLaunched.convertToMMDDYYYY())
     }
     
     var numberOfRows: Int {

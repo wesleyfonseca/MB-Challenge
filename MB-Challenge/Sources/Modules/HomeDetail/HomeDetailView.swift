@@ -18,7 +18,8 @@ final class HomeDetailView: UIView {
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.contentInsetAdjustmentBehavior = .automatic
-//        tableView.register(HomeTableCell.self, forCellReuseIdentifier: String(describing: HomeTableCell.self))
+        tableView.register(HomeDetailTableCell.self,
+                           forCellReuseIdentifier: String(describing: HomeDetailTableCell.self))
         return tableView
     }()
     

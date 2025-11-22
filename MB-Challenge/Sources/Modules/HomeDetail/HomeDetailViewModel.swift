@@ -17,7 +17,7 @@ protocol HomeDetailViewModelProtocol: AnyObject {
     var numberOfRows: Int { get }
     
     func fetchData()
-    func tableCellDto(row: Int) -> HomeTableCellDTO?
+    func tableCellDto(row: Int) -> HomeDetailTableCellDTO?
 }
 
 final class HomeDetailViewModel: HomeDetailViewModelProtocol {
@@ -74,20 +74,18 @@ final class HomeDetailViewModel: HomeDetailViewModelProtocol {
         }
     }
     
-    func tableCellDto(row: Int) -> HomeTableCellDTO? {
-        return nil
-//        guard
-//            let item = exchangeInfoData,
-//            let logo = Array(item.data.values)[row].logo,
-//            let name = Array(item.data.values)[row].name,
-//            let dateLaunched = Array(item.data.values)[row].dateLaunched
-//        else { return nil }
-//        
-//        let spotVolume = Array(item.data.values)[row].spotVolume
-//        return HomeTableCellDTO(logo: logo,
-//                                title: name,
-//                                spotVolume: spotVolume.formatToUSD() ?? "US$ Unknown",
-//                                dateLaunched: "Launched: \(dateLaunched.convertToMMDDYYYY())")
+    func tableCellDto(row: Int) -> HomeDetailTableCellDTO? {
+        guard
+            let asset = assetsDTO,
+            let id = asset.data[row].currency?.id,
+            let logo = infoCryptoDTO?.data[String(id)]?.logo,
+            let name = asset.data[row].currency?.name
+        else { return nil }
+        
+        let price = asset.data[row].currency?.price
+        return HomeDetailTableCellDTO(logo: logo,
+                                      title: name,
+                                      subtitle: price.formatToUSD() ?? "US$ Unknown")
     }
     
     // MARK: - Private Methods

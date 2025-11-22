@@ -73,7 +73,6 @@ extension HomeDetailViewController: HomeDetailViewModelDelegate {
     }
 }
 
-
 // MARK: - UITableViewDelegate & UITableViewDataSource
 
 extension HomeDetailViewController: UITableViewDelegate, UITableViewDataSource {
@@ -82,16 +81,16 @@ extension HomeDetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeTableCell.self),
-//                                                       for: indexPath) as? HomeTableCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeDetailTableCell.self),
+                                                       for: indexPath) as? HomeDetailTableCell else {
             return UITableViewCell()
-//        }
-//        
-//        guard let dto = viewModel.tableCellDto(row: indexPath.row) else {
-//            return UITableViewCell()
-//        }
-//        
-//        cell.configure(dto: dto)
-//        return cell
+        }
+        
+        guard let dto = viewModel.tableCellDto(row: indexPath.row) else {
+            return UITableViewCell()
+        }
+        
+        cell.configure(dto: dto)
+        return cell
     }
 }

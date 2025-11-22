@@ -34,12 +34,12 @@ final class HomeDetailViewModel: HomeDetailViewModelProtocol {
         guard
             let logo = exchangeInfoData.logo,
             let title = exchangeInfoData.name,
-            let description = exchangeInfoData.description,
             let website = exchangeInfoData.urls?.website?.first,
             
             let dateLaunched = exchangeInfoData.dateLaunched
         else { return nil }
         
+        let description = exchangeInfoData.description ?? "Building..."
         let spotVolume = exchangeInfoData.spotVolume.formatToUSD() ?? "US$ Unknown"
         let markerFee = exchangeInfoData.makerFee.formatToUSD() ?? "US$ Unknown"
         let tankerFee = exchangeInfoData.takerFee.formatToUSD() ?? "US$ Unknown"
